@@ -29,6 +29,15 @@ class Genre {
   }
 }
 
+// Convert data into instances defined in Classes (Book, Author, and Genre).
+const bookObjects = books.map((book) => new Book(book));
+const authorObjects = Object.entries(authors).map(
+  ([id, name]) => new Author(id, name)
+);
+const genreObjects = Object.entries(genres).map(
+  ([id, name]) => new Genre(id, name)
+);
+
 
 const starting = document.createDocumentFragment()
 
