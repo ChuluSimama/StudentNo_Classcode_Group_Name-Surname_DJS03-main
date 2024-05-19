@@ -44,6 +44,7 @@ const genreObjects = Object.entries(genres).map(
   renderOptions(document.querySelector("[data-search-genres]"), genreObjects);
   renderOptions(document.querySelector("[data-search-authors]"), authorObjects);
   setupEventListeners();
+  updateShowMoreButton();
   });
 
 // Renders the list of books.
@@ -109,14 +110,21 @@ function handleSearch(event) {
     matches = result;
     document.querySelector("[data-list-items]").innerHTML = "";
     renderBooks(matches);
+    updateShowMoreButton();
 }
     
-    document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) < 1
-
-    document.querySelector('[data-list-button]').innerHTML = `
+  function updateShowMoreButton() { 
+    const button = document.querySelector('[data-list-button]'); button.disabled = true;
+   button.innerHTML = `
         <span>Show more</span>
-        <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
-    `
+        <span class="list__remaining"> (${
+          matches.length - page * BOOKS_PER_PAGE > 0
+            ? matches.length - page * BOOKS_PER_PAGE
+            : 0
+        })</span>
+    `;
+}
+
 function setupEventListeners() {
   // Close the search overlay
   document
@@ -167,14 +175,6 @@ function setupEventListeners() {
   document
     .querySelector("[data-search-form]")
     .addEventListener("submit", handleSearch);
-
-  // "Show more" button click to load more books
-  document.querySelector("[data-list-button]").addEventListener("click", () => {
-    renderBooks(
-      matches.slice(page * BOOKS_PER_PAGE, (page + 1) * BOOKS_PER_PAGE)
-    );
-    page += 1;
-  });
 
   // Book preview click to show book details
   document
