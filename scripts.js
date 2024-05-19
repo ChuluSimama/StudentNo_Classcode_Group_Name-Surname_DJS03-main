@@ -36,32 +36,38 @@ const authorObjects = Object.entries(authors).map(
 );
 const genreObjects = Object.entries(genres).map(
   ([id, name]) => new Genre(id, name)
-);
+)
 
+  document.addEventListener("DOMContentLoaded", () => {
+  renderBooks(matches);
+  renderOptions(document.querySelector("[data-search-genres]"), genreObjects);
+  renderOptions(document.querySelector("[data-search-authors]"), authorObjects);
+  setupEventListeners();
+  });
 
-const starting = document.createDocumentFragment()
-
-for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
+function renderBooks(bookList) 
+const fragment = document.createDocumentFragment()
+bookList.slice(0, BOOKS_PER_PAGE).forEach((book) => {
     const element = document.createElement('button')
     element.classList = 'preview'
-    element.setAttribute('data-preview', id)
+    element.setAttribute('data-preview', book.id)
 
     element.innerHTML = `
         <img
             class="preview__image"
-            src="${image}"
+            src="${book.image}"
         />
         
         <div class="preview__info">
-            <h3 class="preview__title">${title}</h3>
-            <div class="preview__author">${authors[author]}</div>
+            <h3 class="preview__title">${book.title}</h3>
+            <div class="preview__author">${authors[book.author]}</div>
         </div>
     `
 
-    starting.appendChild(element)
-}
+    fragment.appendChild(element)
+})
 
-document.querySelector('[data-list-items]').appendChild(starting)
+document.querySelector('[data-list-items]').appendChild(fragment)
 
 const genreHtml = document.createDocumentFragment()
 const firstGenreElement = document.createElement('option')
