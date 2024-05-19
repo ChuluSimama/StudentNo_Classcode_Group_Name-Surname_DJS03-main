@@ -89,19 +89,21 @@ options.forEach((option) => {
 selectElement.appendChild(fragment);
 }
 
-document.querySelector('[data-search-genres]').appendChild(genreHtml)
-
-const authorsHtml = document.createDocumentFragment()
-const firstAuthorElement = document.createElement('option')
-firstAuthorElement.value = 'any'
-firstAuthorElement.innerText = 'All Authors'
-authorsHtml.appendChild(firstAuthorElement)
-
-for (const [id, name] of Object.entries(authors)) {
-    const element = document.createElement('option')
-    element.value = id
-    element.innerText = name
-    authorsHtml.appendChild(element)
+// Handles the search form submission.
+function handleSearch(event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const filters = Object.fromEntries(formData);
+  const result = bookObjects.filter((book) => {
+    let genreMatch =
+      filters.genre === "any" || book.genres.includes(filters.genre);
+    let authorMatch =
+      filters.author === "any" || book.author === filters.author;
+    let titleMatch =
+      filters.title.trim() === "" ||
+      book.title.toLowerCase().includes(filters.title.toLowerCase());
+    return genreMatch && authorMatch && titleMatch;
+  });
 }
 
 document.querySelector('[data-search-authors]').appendChild(authorsHtml)
@@ -178,7 +180,11 @@ document.querySelector('[data-search-form]').addEventListener('submit', (event) 
     }
 
     page = 1;
-    matches = result
+    matches = result;
+    document.querySelector("[data-list-items]").innerHTML = "";
+    renderBooks(matches);
+
+
 
     if (result.length < 1) {
         document.querySelector('[data-list-message]').classList.add('list__message_show')
