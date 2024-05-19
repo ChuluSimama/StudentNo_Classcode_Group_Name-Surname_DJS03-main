@@ -38,6 +38,7 @@ const genreObjects = Object.entries(genres).map(
   ([id, name]) => new Genre(id, name)
 );
 
+// Initialize the application once the DOM is fully loaded
   document.addEventListener("DOMContentLoaded", () => {
   renderBooks(matches);
   renderOptions(document.querySelector("[data-search-genres]"), genreObjects);
@@ -45,6 +46,7 @@ const genreObjects = Object.entries(genres).map(
   setupEventListeners();
   });
 
+// Renders the list of books.
 function renderBooks(bookList) {
 const fragment = document.createDocumentFragment()
 bookList.slice(0, BOOKS_PER_PAGE).forEach((book) => {
@@ -70,17 +72,21 @@ bookList.slice(0, BOOKS_PER_PAGE).forEach((book) => {
 document.querySelector('[data-list-items]').appendChild(fragment);
 }
 
-const genreHtml = document.createDocumentFragment()
-const firstGenreElement = document.createElement('option')
-firstGenreElement.value = 'any'
-firstGenreElement.innerText = 'All Genres'
-genreHtml.appendChild(firstGenreElement)
+// Renders options for select elements.
+function renderOptions(selectElement, options) {
+const fragment = document.createDocumentFragment();
+const firstOption = document.createElement('option');
+firstOption.value = 'any'
+firstOption.innerText = 'All Options'
+fragment.appendChild(firstOption);
 
-for (const [id, name] of Object.entries(genres)) {
-    const element = document.createElement('option')
-    element.value = id
-    element.innerText = name
-    genreHtml.appendChild(element)
+options.forEach((option) => {
+  const element = document.createElement("option");
+  element.value = option.id;
+  element.innerText = option.name;
+  fragment.appendChild(element);
+});
+selectElement.appendChild(fragment);
 }
 
 document.querySelector('[data-search-genres]').appendChild(genreHtml)
