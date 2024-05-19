@@ -36,7 +36,7 @@ const authorObjects = Object.entries(authors).map(
 );
 const genreObjects = Object.entries(genres).map(
   ([id, name]) => new Genre(id, name)
-)
+);
 
   document.addEventListener("DOMContentLoaded", () => {
   renderBooks(matches);
@@ -45,7 +45,7 @@ const genreObjects = Object.entries(genres).map(
   setupEventListeners();
   });
 
-function renderBooks(bookList) 
+function renderBooks(bookList) {
 const fragment = document.createDocumentFragment()
 bookList.slice(0, BOOKS_PER_PAGE).forEach((book) => {
     const element = document.createElement('button')
@@ -65,9 +65,10 @@ bookList.slice(0, BOOKS_PER_PAGE).forEach((book) => {
     `
 
     fragment.appendChild(element)
-})
+});
 
-document.querySelector('[data-list-items]').appendChild(fragment)
+document.querySelector('[data-list-items]').appendChild(fragment);
+}
 
 const genreHtml = document.createDocumentFragment()
 const firstGenreElement = document.createElement('option')
