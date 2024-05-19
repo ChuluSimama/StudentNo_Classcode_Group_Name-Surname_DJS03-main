@@ -3,6 +3,33 @@ import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 let page = 1;
 let matches = books
 
+class Book {
+  constructor({ id, title, author, image, genres, description, published }) {
+    this.id = id;
+    this.title = title;
+    this.author = author;
+    this.image = image;
+    this.genres = genres;
+    this.description = description;
+    this.published = published;
+  }
+}
+
+class Author {
+  constructor(id, name) {
+    this.id = id;
+    this.name = name;
+  }
+}
+
+class Genre {
+  constructor(id, name) {
+    this.id = id;
+    this.name = name;
+  }
+}
+
+
 const starting = document.createDocumentFragment()
 
 for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
