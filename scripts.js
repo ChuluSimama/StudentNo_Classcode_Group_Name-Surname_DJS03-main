@@ -179,21 +179,11 @@ function setupEventListeners() {
   // Book preview click to show book details
   document
     .querySelector("[data-list-items]")
-    .addEventListener("click", (event) => {
-      const pathArray = Array.from(event.path || event.composedPath());
-      let active = null;
+    .addEventListener("click", () => {
+      const previewPageUrl = `book-preview.html?id=${Book}`; // Create the URL for the book preview page with book ID
+      window.location.href = previewPageUrl; // Navigate to the book preview page
 
-      for (const node of pathArray) {
-        if (active) break; // Break if a book is found
-
-        const id = node?.dataset?.preview;
-        for (const singleBook of bookObjects) {
-          if (singleBook.id === id) {
-            active = singleBook; // Set the active book
-          }
-        }
-      }
-
+      
       if (active) {
         // If a book is found, display its details
         document.querySelector("[data-list-active]").open = true;
@@ -206,6 +196,7 @@ function setupEventListeners() {
         document.querySelector("[data-list-description]").innerText =
           active.description;
       }
+      return element; // Return the created element
     });
 }
 
