@@ -2,38 +2,26 @@
 
 Dive into the delightful world of "Book Connect," where literary adventures await at your fingertips! Browse, explore, and uncover your next great read from a vast, vibrant collection. Whether you're a fan of thrilling mysteries, epic fantasies, or heartwarming romances, "Book Connect" brings the magic of books directly to you. Happy reading! 
 
-The "Book Connect" project provides an opportunity for students to refine a fully functional version of an application. The focus of this project is to enhance the code's maintainability, extendibility, and readability by applying concepts of objects and functions for abstraction. This will not only streamline future modifications but also consolidate students' understanding of higher-level programming concepts, including documentation, Styleguides, and abstraction principles.
+## File Structure
 
-![alt text](image.png)
+1. index.html: The main HTML file that defines the structure of the web application.
+2. scripts.js: The JavaScript file that contains the functionality for handling user interactions, rendering book lists, and applying filters.
+3. styles.css: The CSS file that defines the styles for the application.
 
-#### Goals
+## Original Code
 
-- **Refactor Existing Code**: Analyse and refactor the given JavaScript and HTML code to improve its structure using objects and functions.
-- **Implement Abstraction**: Use abstraction to hide the complex reality while exposing only the necessary parts. This involves creating more generic functions that can perform tasks in a more flexible way.
-- **Documentation**: Write clear comments and documentation for the new code structure to explain the purpose and functionality of code blocks, functions, and objects.
-- **Follow Styleguides**: Adhere to established coding conventions and Styleguides to ensure code readability and maintainability.
+1. Hardcoded data for authors, genres, and books.
+2. Functions to render the book list.
+3. Event handlers for search, author filter, and genre filter.
+4. Repetitive and non-modular code.
 
-#### Tasks
+## Changes Made
 
-1. **Code Analysis**: Start by understanding the current implementation of the "Book Connect" application, including its HTML structure and JavaScript functionality.
-2. **Plan Refactoring**: Identify sections of the code that can be made more abstract and modular. Look for patterns and repetitive code that can be simplified.
-3. **Implement Abstraction**:
-   - **Objects**: Define objects to represent key elements of the application, such as books, authors, and genres. Utilise the provided data (e.g., `authors`, `genres`, `books`) to populate these objects.
-   - **Functions**: Create functions that handle repetitive tasks, such as rendering the book list, handling user interactions, and applying filters.
-4. **Enhance Functionality**: Ensure that the application remains fully functional after refactoring. Test all features to confirm that users can still search, filter, and view books as intended.
-5. **Documentation and Comments**: Throughout the refactoring process, document your code. Provide comments that explain the purpose and functionality of objects and functions.
-6. **Adherence to Styleguides**: Ensure your code follows JavaScript and HTML coding standards and best practices for readability and maintainability.
-
-#### Discussion and Reflection
-
-After completing the tasks, prepare a brief presentation for your coaching group on the following:
-- The rationale behind the refactoring decisions made, including the choice of objects and functions.
-- How abstraction has made the code more maintainable and extendable.
-- Any challenges faced during the refactoring process and how they were overcome.
-- Reflections on how this exercise has deepened your understanding of JavaScript programming concepts.
-
-#### Submission Guidelines
-
-Submit the refactored version of the "Book Connect" application, including all HTML, CSS, and JavaScript files. Ensure that your code is well-documented and adheres to the specified Styleguides. Include a written report covering the discussion and reflection points outlined above.
-
-Make sure to submit your project to the LMS on the DJS03 Project Tab.
+1. Updated the structure to dynamically populate filter options using JavaScript.
+2. Introduced Book, Author, and Genre classes to encapsulate the data.
+3. Created a function to render the book list dynamically
+4. Created a function to dynamically populate author and genre filter options
+5. Created functions to filter books by author and genre
+6. Updated event handlers for search and filter functionalities
+7. Ensured the application initializes correctly by populating filter options and rendering the initial list of books
+8. 
