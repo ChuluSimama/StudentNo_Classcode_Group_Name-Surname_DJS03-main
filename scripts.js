@@ -69,8 +69,6 @@ const genreObjects = Object.entries(genres).map(
     });
 
     return element; // Return the created element
-
-    fragment.appendChild(element);
   }
 
 // Renders the list of books.
