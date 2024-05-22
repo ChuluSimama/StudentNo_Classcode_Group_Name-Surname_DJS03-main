@@ -47,13 +47,10 @@ const genreObjects = Object.entries(genres).map(
   updateShowMoreButton();
   });
 
-// Renders the list of books.
-function renderBooks(bookList) {
-const fragment = document.createDocumentFragment()
-bookList.slice(0, BOOKS_PER_PAGE).forEach((book) => {
-    const element = document.createElement('button')
-    element.classList = 'preview'
-    element.setAttribute('data-preview', book.id)
+  function createBookPreview(book) {
+    const element = document.createElement("button"); // Create a button element for the book preview
+    element.classList = "preview"; // Add CSS class for styling
+    element.setAttribute("data-preview", book.id); // Set a data attribute with the book's ID
 
     element.innerHTML = `
         <img
@@ -65,10 +62,24 @@ bookList.slice(0, BOOKS_PER_PAGE).forEach((book) => {
             <h3 class="preview__title">${book.title}</h3>
             <div class="preview__author">${authors[book.author]}</div>
         </div>
-    `
+    `;
+    element.addEventListener("click", () => {
+      const previewPageUrl = `book-preview.html?id=${book.id}`; // Create the URL for the book preview page with book ID
+      window.location.href = previewPageUrl; // Navigate to the book preview page
+    });
 
-    fragment.appendChild(element)
-});
+    return element; // Return the created element
+
+    fragment.appendChild(element);
+  }
+
+// Renders the list of books.
+function renderBooks(bookList) {
+ const fragment = document.createDocumentFragment(); // Create a document fragment to hold preview elements
+    bookList.slice(0, BOOKS_PER_PAGE).forEach(book => {
+        const previewElement = createBookPreview(book); // Create a preview element for each book
+        fragment.appendChild(previewElement); // Append the preview element to the fragment
+    });
 
 document.querySelector('[data-list-items]').appendChild(fragment);
 }
@@ -179,13 +190,19 @@ function setupEventListeners() {
   // Book preview click to show book details
   document
     .querySelector("[data-list-items]")
-    .addEventListener("click", () => {
-      const previewPageUrl = `book-preview.html?id=${Book}`; // Create the URL for the book preview page with book ID
-      window.location.href = previewPageUrl; // Navigate to the book preview page
-
-      
+    .addEventListener("click", (event) => {
+      const pathArray = Array.from(event.path || event.composedPath());
+      let active = null;
+      for (const node of pathArray) {
+        if (active) break;
+        const id = node?.dataset?.preview;
+        for (const singleBook of bookObjects) {
+          if (singleBook.id === id) {
+            active = singleBook;
+          }
+        }
+      }
       if (active) {
-        // If a book is found, display its details
         document.querySelector("[data-list-active]").open = true;
         document.querySelector("[data-list-blur]").src = active.image;
         document.querySelector("[data-list-image]").src = active.image;
@@ -196,7 +213,6 @@ function setupEventListeners() {
         document.querySelector("[data-list-description]").innerText =
           active.description;
       }
-      return element; // Return the created element
     });
 }
 
